@@ -9,3 +9,5 @@
 /XppMetadata
 /bin
 /*.xref
+/BuildProjectResult.err.xml
+/BuildProjectResult.xml

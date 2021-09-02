@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ClientSSHNet</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class ClientSSHNet
+{
+    private ConnectionInfoSSHNet connectionInfo;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new(ConnectionInfoSSHNet _connectionInfo)
+    {
+        connectionInfo = _connectionInfo;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static ClientSSHNet construct(ConnectionInfoSSHNet _connectionInfo)
+    {
+        ClientSSHNet res;
+
+        res = new ClientSSHNet(_connectionInfo);
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>constructFromParameters</Name>
+				<Source><![CDATA[
+    public static ClientSSHNet constructFromParameters(Name _hostname, int _port, Username _username, Password _password)
+    {
+        AuthenticationMethodListSSHNet authMethods = AuthenticationMethodListSSHNet::construct();
+
+        authMethods.addMethod(PasswordAuthenticationMethodSSHNet::construct(_username, _password));
+
+        ConnectionInfoSSHNet connectionInfo = ConnectionInfoSSHNet::construct(_hostname, _username, _port, authMethods);
+
+        ClientSSHNet res = ClientSSHNet::construct(connectionInfo);
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>sendFile</Name>
+				<Source><![CDATA[
+    public void sendFile(FilePath _filenameOnServer, FilePath _localFilename)
+    {
+        InteropPermission interopPermission;
+
+        interopPermission = new InteropPermission(InteropKind::ClrInterop);
+        interopPermission.assert();
+
+        str content = System.IO.File::ReadAllText(_localFilename);
+
+        CodeAccessPermission::RevertAssert();
+
+        this.send(_filenameOnServer, content);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>send</Name>
+				<Source><![CDATA[
+    public void send(FilePath _filenameOnServer, str _content)
+    {
+        InteropPermission interopPermission;
+
+        interopPermission = new InteropPermission(InteropKind::ClrInterop);
+        interopPermission.assert();
+
+        using (Renci.SshNet.SftpClient sftp = new Renci.SshNet.SftpClient(connectionInfo.getConnectionInfo()))
+        {
+            sftp.Connect();
+
+            if (sftp.IsConnected)
+            {
+                System.Text.Encoding encoding = new System.Text.UTF8Encoding(false);
+
+                using(System.IO.MemoryStream stream = new System.IO.MemoryStream())
+                {
+                    using(System.IO.StreamWriter writer = new System.IO.StreamWriter(stream, encoding))
+                    {
+                        writer.Write(_content);
+                        writer.Flush();
+                        stream.Position = 0;
+                        sftp.BufferSize = 4 * 1024;
+                        sftp.UploadFile(stream, _filenameOnServer, true, null);
+                    }
+                }
+            
+                sftp.Disconnect();
+                sftp.Dispose();
+            }
+            else
+            {
+                throw error("SFTP: file failed to send");
+            }
+        }
+
+        CodeAccessPermission::RevertAssert();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
