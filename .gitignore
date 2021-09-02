@@ -1,0 +1,13 @@
+.vs
+*.cache
+*.log
+/BuildModelResult.xml
+/BuildModelResult.err.xml
+/CompileLabels.xml
+/Reports
+/Resources
+/XppMetadata
+/bin
+/*.xref
+/BuildProjectResult.err.xml
+/BuildProjectResult.xml

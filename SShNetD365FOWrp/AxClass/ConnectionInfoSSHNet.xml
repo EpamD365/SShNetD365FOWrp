@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ConnectionInfoSSHNet</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class ConnectionInfoSSHNet
+{
+    private Name hostname;
+    private UserName username;
+    private int port;
+    private AuthenticationMethodListSSHNet authMethods;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new()
+    {
+        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static ConnectionInfoSSHNet construct(Name _hostname, UserName _username, int _port, AuthenticationMethodListSSHNet _authMethods)
+    {
+        ConnectionInfoSSHNet res;
+
+        res = new ConnectionInfoSSHNet();
+        res.parmHostname(_hostname);
+        res.parmUserName(_username);
+        res.parmPort(_port);
+        res.parmAuthMethods(_authMethods);
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmAuthMethods</Name>
+				<Source><![CDATA[
+    public AuthenticationMethodListSSHNet parmAuthMethods(AuthenticationMethodListSSHNet _authMethods = authMethods)
+    {
+        authMethods = _authMethods;
+
+        return authMethods;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmHostname</Name>
+				<Source><![CDATA[
+    public Name parmHostname(Name _hostname = hostname)
+    {
+        hostname = _hostname;
+
+        return hostname;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmUserName</Name>
+				<Source><![CDATA[
+    public UserName parmUserName(UserName _username = username)
+    {
+        username = _username;
+
+        return username;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmPort</Name>
+				<Source><![CDATA[
+    public int parmPort(int _port = port)
+    {
+        port = _port;
+
+        return port;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getConnectionInfo</Name>
+				<Source><![CDATA[
+    public Renci.SshNet.ConnectionInfo getConnectionInfo()
+    {
+        InteropPermission interopPermission;
+
+        interopPermission = new InteropPermission(InteropKind::ClrInterop);
+        interopPermission.assert();
+
+        Renci.SshNet.ConnectionInfo res;
+        
+        res = new Renci.SshNet.ConnectionInfo(this.parmHostname(), this.parmPort(), this.parmUserName(), authMethods.getAuthArray());
+
+        CodeAccessPermission::RevertAssert();
+
+        return res;
+
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
