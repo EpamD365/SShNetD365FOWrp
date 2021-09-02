@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>SShNetD365FOWrp</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
+    <ProjectGuid>{b75563a3-6d66-4e17-8677-407af2905a3e}</ProjectGuid>
+    <Name>SShNetD365FOWrp</Name>
+    <RootNamespace>SShNetD365FOWrp</RootNamespace>
+    <StartupType>Class</StartupType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="AxClass\AuthenticationMethodListSSHNet">
+      <SubType>Content</SubType>
+      <Name>AuthenticationMethodListSSHNet</Name>
+      <Link>AuthenticationMethodListSSHNet</Link>
+    </Content>
+    <Content Include="AxClass\AuthenticationMethodSSHNet">
+      <SubType>Content</SubType>
+      <Name>AuthenticationMethodSSHNet</Name>
+      <Link>AuthenticationMethodSSHNet</Link>
+    </Content>
+    <Content Include="AxClass\ClientSSHNet">
+      <SubType>Content</SubType>
+      <Name>ClientSSHNet</Name>
+      <Link>ClientSSHNet</Link>
+    </Content>
+    <Content Include="AxClass\ConnectionInfoSSHNet">
+      <SubType>Content</SubType>
+      <Name>ConnectionInfoSSHNet</Name>
+      <Link>ConnectionInfoSSHNet</Link>
+    </Content>
+    <Content Include="AxClass\PasswordAuthenticationMethodSSHNet">
+      <SubType>Content</SubType>
+      <Name>PasswordAuthenticationMethodSSHNet</Name>
+      <Link>PasswordAuthenticationMethodSSHNet</Link>
+    </Content>
+    <Content Include="AxClass\PrivateKeyAuthenticationMethodSSHNet">
+      <SubType>Content</SubType>
+      <Name>PrivateKeyAuthenticationMethodSSHNet</Name>
+      <Link>PrivateKeyAuthenticationMethodSSHNet</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Renci.SshNet, Version=2020.0.1.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106">
+      <Name>Renci.SshNet</Name>
+      <HintPath>C:\AOSService\PackagesLocalDirectory\SShNetD365FOWrp\bin\Renci.SshNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>

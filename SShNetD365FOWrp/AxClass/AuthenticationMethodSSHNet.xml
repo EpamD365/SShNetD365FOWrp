@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AuthenticationMethodSSHNet</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class AuthenticationMethodSSHNet
+{
+}
+
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>getMethod</Name>
+				<Source><![CDATA[
+    public Renci.SshNet.AuthenticationMethod getMethod()
+    {
+        Renci.SshNet.AuthenticationMethod res;
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
