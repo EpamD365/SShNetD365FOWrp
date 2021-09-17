@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AuthenticationMethodListSSHNet</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class AuthenticationMethodListSSHNet
+{
+    private List methods;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    protected void new()
+    {
+        methods = new List(Types::Class);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static AuthenticationMethodListSSHNet construct()
+    {
+        AuthenticationMethodListSSHNet res;
+
+        res = new AuthenticationMethodListSSHNet();
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addMethod</Name>
+				<Source><![CDATA[
+    public void addMethod(AuthenticationMethodSSHNet _authMethod)
+    {
+        methods.addEnd(_authMethod);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getAuthArray</Name>
+				<Source><![CDATA[
+    public Renci.SshNet.AuthenticationMethod[] getAuthArray()
+    {
+        InteropPermission interopPermission;
+
+        interopPermission = new InteropPermission(InteropKind::ClrInterop);
+        interopPermission.assert();
+
+        Renci.SshNet.AuthenticationMethod[] res;
+
+        res = new Renci.SshNet.AuthenticationMethod[methods.elements()]();
+
+        var enumerator = methods.getEnumerator();
+        int i = 0;
+
+        while(enumerator.moveNext())
+        {
+            AuthenticationMethodSSHNet elem = enumerator.current();
+
+            res.SetValue(elem.getMethod(), i);
+
+            i++;
+        }
+
+        CodeAccessPermission::RevertAssert();
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

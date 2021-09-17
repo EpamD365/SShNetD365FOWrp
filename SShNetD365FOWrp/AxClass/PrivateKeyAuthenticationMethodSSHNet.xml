@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>PrivateKeyAuthenticationMethodSSHNet</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class PrivateKeyAuthenticationMethodSSHNet extends AuthenticationMethodSSHNet
+{
+    private FreeText key;
+    private UserName username;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new()
+    {
+        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static PrivateKeyAuthenticationMethodSSHNet construct(UserName _username, FreeText _key)
+    {
+        PrivateKeyAuthenticationMethodSSHNet res;
+
+        res = new PrivateKeyAuthenticationMethodSSHNet();
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmKey</Name>
+				<Source><![CDATA[
+    public FreeText parmKey(FreeText _key = key)
+    {
+        key = _key;
+
+        return key;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmUserName</Name>
+				<Source><![CDATA[
+    public UserName parmUserName(UserName _username = username)
+    {
+        username = _username;
+
+        return username;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getMethod</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    public Renci.SshNet.AuthenticationMethod getMethod()
+    {
+        InteropPermission interopPermission;
+
+        interopPermission = new InteropPermission(InteropKind::ClrInterop);
+        interopPermission.assert();
+
+        Renci.SshNet.AuthenticationMethod res;
+        Renci.SshNet.PrivateKeyFile privateKeyFile;
+    
+        using(System.IO.MemoryStream stream = new System.IO.MemoryStream())
+        {
+            using(System.IO.StreamWriter writer = new System.IO.StreamWriter(stream))
+            {
+                writer.Write(key);
+                writer.Flush();
+                stream.Position = 0;
+
+                privateKeyFile = new Renci.SshNet.PrivateKeyFile(stream);
+            }
+        }
+
+        res = new Renci.SshNet.PrivateKeyAuthenticationMethod(this.parmUserName(), privateKeyFile);
+
+        CodeAccessPermission::RevertAssert();
+    
+        return res;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
